@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Gemoyan - Multi-Platform Automation & QC Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .sidebar-item-active { background-color: #f5f3ff; color: #4f46e5; border-radius: 12px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .gradient-brand { background: linear-gradient(135deg, #4f46e5 0%, #c084fc 100%); }
+        .gradient-animasi { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col md:flex-row">
+
+    <aside class="w-full md:w-64 bg-slate-950 text-slate-200 p-6 flex flex-col justify-between shadow-md border-r border-slate-800">
+        <div>
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center overflow-hidden shadow-lg shadow-indigo-500/10 border border-slate-800">
+                    <img src="logo.png" alt="Gemoyan Logo" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-base tracking-tight text-white uppercase">Sistem Gemoyan</h1>
+                    <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Omni-Channel Engine</p>
+                </div>
+            </div>
+            
+            <nav class="space-y-2">
+                <button onclick="switchTab('dashboard-tab')" id="btn-dashboard-tab" class="w-full flex items-center gap-3 px-4 py-3 sidebar-item-active font-semibold transition-all">
+                    <i class="fa-solid fa-chart-pie text-sm"></i> Dashboard Status
+                </button>
+                <button onclick="switchTab('upload-tab')" id="btn-upload-tab" class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-900 rounded-xl transition font-medium transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Shorts Gemoyan
+                </button>
+                <button onclick="switchTab('qc-animasi-tab')" id="btn-qc-animasi-tab" class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-900 rounded-xl transition font-medium transition-all border border-dashed border-pink-500/30">
+                    <i class="fa-solid fa-film text-sm text-pink-400"></i> Animasi Gemoyan
+                </button>
+                <button onclick="switchTab('analytics-tab')" id="btn-analytics-tab" class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-900 rounded-xl transition font-medium transition-all">
+                    <i class="fa-solid fa-chart-line text-sm"></i> Analytics
+                </button>
+            </nav>
+        </div>
+        
+        <div class="pt-6 border-t border-slate-800 flex items-center gap-2">
+            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+            <p class="text-[11px] text-slate-400 font-bold uppercase tracking-tight">Omni-Engine Online</p>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-10 max-w-[1600px] overflow-y-auto">
+        
+        <div id="dashboard-tab" class="tab-content active space-y-10">
+            <header>
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Maju Terus, Creator! 🚀</h2>
+                <p class="text-slate-500 font-medium">Pantau statistik konsistensi upload, manajemen stok konten, dan integrasi platform.</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center">
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Upload</p>
+                            <h3 class="text-2xl font-black text-slate-900 mt-1">142 Video</h3>
+                        </div>
+                        <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center">
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Stok Konten di Drive</p>
+                            <h3 id="stokCount" class="text-2xl font-black text-indigo-600 mt-1">28 File</h3>
+                        </div>
+                        <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600"><i class="fa-solid fa-folder-open"></i></div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Skor Konsistensi Jam 20.00</p>
+                            <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">98% Patuh</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-full" style="width: 98%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[220px]">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2"><i class="fa-solid fa-chart-line mr-1"></i> Grafik Peningkatan Frekuensi & Stok Konten</p>
+                    <div class="h-40 w-full">
+                        <canvas id="dashboardChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div id="card-tiktok" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[180px] transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Jalur TikTok</p>
+                            <i class="fa-brands fa-tiktok text-xl text-black"></i>
+                        </div>
+                        <h3 id="statusTikTok" class="text-lg font-extrabold text-red-500">BELUM TERHUBUNG</h3>
+                        <div id="info-wrapper-tiktok">
+                            <p id="userTikTok" class="text-xs font-medium text-slate-400 mt-1">Akses otomatisasi terkunci</p>
+                        </div>
+                    </div>
+                    <button onclick="openLoginModal('tiktok')" id="btn-login-tiktok" class="mt-4 w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i> Hubungkan Akun
+                    </button>
+                </div>
+
+                <div id="card-instagram" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[180px] transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Jalur Instagram Reels</p>
+                            <i class="fa-brands fa-instagram text-xl text-pink-500"></i>
+                        </div>
+                        <h3 id="statusIG" class="text-lg font-extrabold text-red-500">BELUM TERHUBUNG</h3>
+                        <div id="info-wrapper-instagram">
+                            <p id="userIG" class="text-xs font-medium text-slate-400 mt-1">Akses otomatisasi terkunci</p>
+                        </div>
+                    </div>
+                    <button onclick="openLoginModal('instagram')" id="btn-login-instagram" class="mt-4 w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i> Hubungkan Akun
+                    </button>
+                </div>
+
+                <div id="card-youtube" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[180px] transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Jalur YouTube Shorts</p>
+                            <i class="fa-brands fa-youtube text-xl text-red-600"></i>
+                        </div>
+                        <h3 id="statusYT" class="text-lg font-extrabold text-red-500">BELUM TERHUBUNG</h3>
+                        <div id="info-wrapper-youtube">
+                            <p id="userYT" class="text-xs font-medium text-slate-400 mt-1">Akses otomatisasi terkunci</p>
+                        </div>
+                    </div>
+                    <button onclick="openLoginModal('youtube')" id="btn-login-youtube" class="mt-4 w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key"></i> Hubungkan Akun
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="upload-tab" class="tab-content space-y-10">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Shorts Gemoyan Hub 🎬</h2>
+                    <p class="text-slate-500 font-medium">Proses pembersihan metadata, ganti nama otomatis, dan split distribusi bahasa paralel untuk video reguler.</p>
+                </div>
+                <div class="bg-slate-200 p-1 rounded-xl flex border border-slate-300">
+                    <button id="switch-id" onclick="setJalurBahasa('id')" class="px-4 py-2 text-xs font-bold rounded-lg bg-white text-indigo-600 shadow-sm transition-all">Jalur INDONESIA</button>
+                    <button id="switch-global" onclick="setJalurBahasa('global')" class="px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all">Jalur GLOBAL</button>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <span class="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px]">1</span> Panggil File Cloud Drive
+                        </h3>
+                        <div>
+                            <label for="driveAccountSelect" class="block text-xs font-semibold text-slate-500 mb-1">Pilih Akun Google Drive Sumber</label>
+                            <select id="driveAccountSelect" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-indigo-500 mb-3">
+                                <option value="utama">Google Drive - Akun Utama (@arnot.edu)</option>
+                                <option value="cadangan">Google Drive - Akun Cadangan (@gemoyan.media)</option>
+                                <option value="global">Google Drive - Jalur Konten Global (@global.arnot)</option>
+                            </select>
+
+                            <label for="driveFileName" class="block text-xs font-semibold text-slate-500 mb-1">Nama Kode File Video (.mp4)</label>
+                            <input type="text" id="driveFileName" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-indigo-500" placeholder="Contoh: gemoyan_raw_01.mp4">
+                        </div>
+                        <button onclick="loadDriveVideoSimulate('driveFileName', 'driveAccountSelect', 'qcVideoPlayer', 'videoPlaceholder', 'liveLoggerBox')" class="w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-slate-900/10">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Tarik, Bersihkan & Putar File
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <span class="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px]">2</span> Pemutar Evaluasi Konten Cleaned
+                        </h3>
+                        
+                        <div class="w-full aspect-[9/16] max-h-[400px] bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center relative border border-slate-800 shadow-inner">
+                            <video id="qcVideoPlayer" class="w-full h-full object-cover hidden" controls>
+                                <source id="videoSource" src="" type="video/mp4">
+                            </video>
+                            <div id="videoPlaceholder" class="text-center p-6 space-y-2">
+                                <i class="fa-solid fa-clapperboard text-4xl text-slate-700 animate-pulse"></i>
+                                <p class="text-xs text-slate-500 font-semibold">Gunakan Tombol 'Tarik & Bersihkan' untuk memulai rendering evaluasi</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <button onclick="triggerRevision('metaFieldsWrapper', 'qcBadge', 'liveLoggerBox')" class="bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold py-3 px-4 rounded-xl border border-red-200 transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Gagal, Ulangi Proses!
+                            </button>
+                            <button onclick="approveVideoQuality('qcVideoPlayer', 'metaFieldsWrapper', 'qcBadge', 'liveLoggerBox')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/10">
+                                <i class="fa-solid fa-circle-check"></i> Bagus, Buka Form!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <div id="metaFieldsWrapper" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm opacity-40 pointer-events-none transition-all duration-300">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[11px]">3</span> Data Publikasi Shorts (<span id="bahasaLabel">INDONESIA</span>)
+                            </h3>
+                            <span id="qcBadge" class="text-[10px] font-bold uppercase tracking-widest bg-slate-100 text-slate-500 px-2.5 py-1 rounded-md">QC Pending</span>
+                        </div>
+
+                        <form id="omniAutomationForm" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Set Jadwal Rilis Serentak</label>
+                                    <input type="time" id="globalSchedule" value="20:00" required class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold bg-white text-slate-700">
+                                </div>
+                                <div class="flex flex-col justify-center text-[11px] font-semibold text-slate-500 space-y-1">
+                                    <span class="text-green-700"><i class="fa-solid fa-scissors mr-1"></i> Strip CapCut Metadata: ACTIVE</span>
+                                    <span class="text-indigo-600 flex items-center gap-1">
+                                        <img src="logo.png" class="w-4 h-4 rounded-full object-cover border border-indigo-200">
+                                        Gemoyan Watermark: RETAINED
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 border-t border-slate-100 pt-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Judul Konten Video</label>
+                                    <input type="text" id="contentTitle" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-indigo-500" placeholder="Ketik judul konten...">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi / Caption</label>
+                                        <textarea id="contentDesc" rows="3" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-indigo-500" placeholder="Tulis deskripsi atau isi caption..."></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Tags / Hashtags</label>
+                                        <textarea id="contentTags" rows="3" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-indigo-500" placeholder="Contoh: #gemoyan #fyp #viral"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 pt-4 space-y-2">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Live Platform Status Matrix</label>
+                                <div class="grid grid-cols-3 gap-3 text-[10px] font-mono font-bold">
+                                    <div id="matrix-tt" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-tiktok text-xs"></i> TIKTOK: IDLE
+                                    </div>
+                                    <div id="matrix-ig" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-instagram text-xs"></i> REELS: IDLE
+                                    </div>
+                                    <div id="matrix-yt" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-youtube text-xs"></i> SHORTS: IDLE
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btnOmniSubmit" class="w-full gradient-brand text-white font-bold py-4 rounded-xl hover:opacity-90 transition shadow-xl shadow-indigo-600/10 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-tower-broadcast"></i> Kunci & Jadwalkan Kirim Serentak
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Live Log Transmission</h4>
+                        <div id="liveLoggerBox" class="bg-slate-900 rounded-xl p-4 min-h-[100px] max-h-[150px] overflow-y-auto text-[11px] font-mono text-emerald-400 space-y-1">
+                            <p class="text-slate-500">[SYSTEM READY] Menunggu instruksi upload dan verifikasi berkas...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="qc-animasi-tab" class="tab-content space-y-10">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight text-pink-600">Animasi Gemoyan Hub 🎪</h2>
+                    <p class="text-slate-500 font-medium">Khusus pemrosesan video animasi gemoyan spesial malam minggu jam 20.00.</p>
+                </div>
+                <div class="bg-pink-100 p-1 rounded-xl flex border border-pink-200">
+                    <button id="switch-anim-id" onclick="setAnimJalurBahasa('id')" class="px-4 py-2 text-xs font-bold rounded-lg bg-white text-pink-600 shadow-sm transition-all">Jalur INDONESIA</button>
+                    <button id="switch-anim-global" onclick="setAnimJalurBahasa('global')" class="px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-pink-900 transition-all">Jalur GLOBAL</button>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-pink-400 flex items-center gap-2">
+                            <span class="w-5 h-5 bg-pink-500 text-white rounded-full flex items-center justify-center text-[10px]">1</span> Panggil File Animasi dari Drive
+                        </h3>
+                        <div>
+                            <label for="driveAnimasiAccountSelect" class="block text-xs font-semibold text-slate-500 mb-1">Pilih Akun Google Drive Sumber</label>
+                            <select id="driveAnimasiAccountSelect" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-pink-500 mb-3">
+                                <option value="utama">Google Drive - Akun Utama (@arnot.edu)</option>
+                                <option value="cadangan">Google Drive - Akun Cadangan (@gemoyan.media)</option>
+                                <option value="global">Google Drive - Jalur Konten Global (@global.arnot)</option>
+                            </select>
+
+                            <label for="driveAnimasiName" class="block text-xs font-semibold text-slate-500 mb-1">Nama Kode File Animasi (.mp4)</label>
+                            <input type="text" id="driveAnimasiName" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-pink-500" placeholder="Contoh: gemoyan_animasi_minggu.mp4">
+                        </div>
+                        <button onclick="loadDriveVideoSimulate('driveAnimasiName', 'driveAnimasiAccountSelect', 'animasiVideoPlayer', 'animasiPlaceholder', 'animasiLoggerBox')" class="w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-slate-900/10">
+                            <i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i> Tarik & Bersihkan Animasi
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-pink-400 flex items-center gap-2">
+                            <span class="w-5 h-5 bg-pink-500 text-white rounded-full flex items-center justify-center text-[10px]">2</span> Pemutar Evaluasi Video Animasi
+                        </h3>
+                        
+                        <div class="w-full aspect-[9/16] max-h-[400px] bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center relative border border-slate-800 shadow-inner">
+                            <video id="animasiVideoPlayer" class="w-full h-full object-cover hidden" controls>
+                                <source id="animasiVideoSource" src="" type="video/mp4">
+                            </video>
+                            <div id="animasiPlaceholder" class="text-center p-6 space-y-2">
+                                <i class="fa-solid fa-face-grin-stars text-4xl text-pink-300 animate-pulse"></i>
+                                <p class="text-xs text-slate-500 font-semibold">Gunakan tombol di atas untuk merender video animasi gemoyan</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <button onclick="triggerRevision('metaAnimasiWrapper', 'animasiQcBadge', 'animasiLoggerBox')" class="bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold py-3 px-4 rounded-xl border border-red-200 transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Gagal QC, Revisi!
+                            </button>
+                            <button onclick="approveVideoQuality('animasiVideoPlayer', 'metaAnimasiWrapper', 'animasiQcBadge', 'animasiLoggerBox')" class="bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-pink-600/10">
+                                <i class="fa-solid fa-circle-check"></i> Lolos QC, Buka Form!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <div id="metaAnimasiWrapper" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm opacity-40 pointer-events-none transition-all duration-300">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-5 h-5 bg-pink-500 text-white rounded-full flex items-center justify-center text-[11px]">3</span> Data Publikasi Jalur Animasi (<span id="animBahasaLabel">INDONESIA</span>)
+                            </h3>
+                            <span id="animasiQcBadge" class="text-[10px] font-bold uppercase tracking-widest bg-slate-100 text-slate-500 px-2.5 py-1 rounded-md">QC Pending</span>
+                        </div>
+
+                        <form id="animasiAutomationForm" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-pink-50/50 border border-pink-100 rounded-xl">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-pink-600 uppercase mb-1">Jadwal Otomatis Malam Minggu</label>
+                                    <input type="time" id="animasiSchedule" value="20:00" readonly class="w-full px-3 py-2 border border-pink-200 rounded-lg text-xs font-bold bg-white text-pink-600 cursor-not-allowed">
+                                </div>
+                                <div class="flex flex-col justify-center text-[11px] font-semibold text-slate-500 space-y-1">
+                                    <span class="text-pink-600"><i class="fa-solid fa-star mr-1"></i> Edisi Khas Animasi Gemoyan</span>
+                                    <span class="text-indigo-600 flex items-center gap-1">
+                                        <img src="logo.png" class="w-4 h-4 rounded-full object-cover border border-indigo-200">
+                                        Watermark Engine: CLEANED
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 border-t border-slate-100 pt-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Judul Video Animasi</label>
+                                    <input type="text" id="animasiTitle" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-pink-500" placeholder="Contoh: Minggu Ceria Bareng Gemoyan! ✨">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Caption Shorts</label>
+                                        <textarea id="animasiDesc" rows="3" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-pink-500" placeholder="Tulis deskripsi konten animasi spesial malam minggu..."></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Hashtags Animasi</label>
+                                        <textarea id="animasiTags" rows="3" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-pink-500" placeholder="#gemoyan #animasigemoyan #malamminggu #shorts"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 pt-4 space-y-2">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Live Platform Status Matrix (Jalur Animasi)</label>
+                                <div class="grid grid-cols-3 gap-3 text-[10px] font-mono font-bold">
+                                    <div id="matrix-anim-tt" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-tiktok text-xs"></i> TIKTOK: IDLE
+                                    </div>
+                                    <div id="matrix-anim-ig" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-instagram text-xs"></i> REELS: IDLE
+                                    </div>
+                                    <div id="matrix-anim-yt" class="bg-slate-100 border border-slate-200 p-2.5 rounded-xl text-center text-slate-400 flex flex-col items-center gap-1">
+                                        <i class="fa-brands fa-youtube text-xs"></i> SHORTS: IDLE
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btnAnimSubmit" class="w-full gradient-animasi text-white font-bold py-4 rounded-xl hover:opacity-90 transition shadow-xl shadow-pink-600/10 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-rocket"></i> Jadwalkan Post Animasi Malam Minggu
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Live Log Transmission (Animasi)</h4>
+                        <div id="animasiLoggerBox" class="bg-slate-900 rounded-xl p-4 min-h-[100px] max-h-[150px] overflow-y-auto text-[11px] font-mono text-pink-400 space-y-1">
+                            <p class="text-slate-500">[SYSTEM READY] Menunggu antrean berkas video animasi spesial...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="analytics-tab" class="tab-content space-y-10">
+            <div id="minggu-banner" class="hidden bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 rounded-3xl shadow-lg flex items-center gap-4 border border-purple-500/20 transition-all duration-500">
+                <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-bolt animate-bounce"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-lg">Jalur Khusus: Konten Animasi Gemoyan Aktif! ✨</h3>
+                    <p class="text-xs text-purple-100 mt-0.5 font-medium">Sistem mendeteksi jadwal Malam Minggu (Jam 20.00). Video Shorts animasi siap di-push otomatis malam ini secara eksklusif!</p>
+                </div>
+            </div>
+
+            <header>
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Statistik & Analisis Performa 📊</h2>
+                <p class="text-slate-500 font-medium">Evaluasi metrik distribusi video shorts, sisa kurva stok drive, dan efisiensi performa harian.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[280px]">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4"><i class="fa-solid fa-paper-plane mr-1 text-indigo-500"></i> Total Postingan Konten</p>
+                    <div class="h-48 w-full flex items-center justify-center">
+                        <canvas id="postCountChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[280px]">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4"><i class="fa-solid fa-layer-group mr-1 text-purple-500"></i> Kurva Stok Konten Terkini</p>
+                    <div class="h-48 w-full flex items-center justify-center">
+                        <canvas id="stockCurveChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[280px]">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4"><i class="fa-solid fa-circle-check mr-1 text-emerald-500"></i> Grafik Kinerja Kreator</p>
+                    <div class="h-48 w-full flex items-center justify-center">
+                        <canvas id="performancePieChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[280px] border-pink-200 bg-pink-50/10">
+                    <p class="text-xs font-bold text-pink-500 uppercase tracking-wider mb-4"><i class="fa-solid fa-face-smile-wink mr-1"></i> Performa Animasi Gemoyan</p>
+                    <div class="h-48 w-full flex items-center justify-center">
+                        <canvas id="animasiPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="loginModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl p-6 border border-slate-100">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-2">
+                    <i id="modalIcon" class="text-xl"></i>
+                    <h3 id="modalTitle" class="font-extrabold text-base text-slate-900">Hubungkan Akun</h3>
+                </div>
+                <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="modalLoginForm" class="space-y-4">
+                <input type="hidden" id="targetPlatform">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Username / Email</label>
+                    <input type="text" id="loginUser" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-indigo-500" placeholder="@username_kamu">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Password</label>
+                    <input type="password" id="loginPass" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-indigo-500" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check"></i> Verifikasi & Amankan Jalur
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let accountStatus = {
+            tiktok: { loggedIn: false, username: "" },
+            instagram: { loggedIn: false, username: "" },
+            youtube: { loggedIn: false, username: "" }
+        };
+
+        let currentJalur = 'id'; 
+        let currentAnimJalur = 'id';
+        let totalStok = 28;
+
+        // Data Penyimpanan Form Shorts Reguler
+        let dataBahasa = {
+            id: { title: "", desc: "", tags: "" },
+            global: { title: "", desc: "", tags: "" }
+        };
+
+        // Data Penyimpanan Form Animasi Gemoyan
+        let dataAnimasiBahasa = {
+            id: { title: "", desc: "", tags: "" },
+            global: { title: "", desc: "", tags: "" }
+        };
+
+        let postChartInstance, stockChartInstance, perfChartInstance, animChartInstance;
+
+        const ctx = document.getElementById('dashboardChart').getContext('2d');
+        const mainChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                datasets: [
+                    {
+                        label: 'Frekuensi Upload Konten',
+                        data: [12, 19, 15, 25, 22, 30, 20],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Sisa Stok File Drive',
+                        data: [35, 32, 30, 28, 28, 25, 28],
+                        borderColor: '#c084fc',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', labels: { font: { size: 10, weight: 'bold' } } } },
+                scales: {
+                    x: { grid: { color: '#e2e8f0' }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: '#e2e8f0' }, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('aside nav button').forEach(btn => {
+                btn.className = "w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-900 rounded-xl transition font-medium transition-all";
+            });
+            document.getElementById('btn-' + tabId).className = "w-full flex items-center gap-3 px-4 py-3 sidebar-item-active font-semibold transition-all";
+
+            if(tabId === 'analytics-tab') {
+                initAnalyticsCharts();
+            }
+        }
+
+        function cekJadwalMalamMinggu() {
+            const sekarang = new Date();
+            const hari = sekarang.getDay();
+            const jam = sekarang.getHours();
+            const banner = document.getElementById('minggu-banner');
+            
+            if (hari === 6) {
+                if(document.getElementById('globalSchedule')) {
+                    document.getElementById('globalSchedule').value = "20:00";
+                }
+                if(jam >= 20 && banner) {
+                    banner.classList.remove('hidden');
+                }
+            }
+        }
+        cekJadwalMalamMinggu();
+
+        function initAnalyticsCharts() {
+            if (postChartInstance) postChartInstance.destroy();
+            if (stockChartInstance) stockChartInstance.destroy();
+            if (perfChartInstance) perfChartInstance.destroy();
+            if (animChartInstance) animChartInstance.destroy();
+
+            const ctxPost = document.getElementById('postCountChart').getContext('2d');
+            postChartInstance = new Chart(ctxPost, {
+                type: 'bar',
+                data: {
+                    labels: ['TikTok', 'IG Reels', 'YT Shorts'],
+                    datasets: [{
+                        label: 'Video Berhasil Rilis',
+                        data: [54, 38, 50],
+                        backgroundColor: ['#0f172a', '#db2777', '#dc2626'],
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctxStock = document.getElementById('stockCurveChart').getContext('2d');
+            stockChartInstance = new Chart(ctxStock, {
+                type: 'line',
+                data: {
+                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                    datasets: [{
+                        label: 'Stok File Drive',
+                        data: [35, 32, 30, 28, 28, 25, 28],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.05)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctxPerf = document.getElementById('performancePieChart').getContext('2d');
+            perfChartInstance = new Chart(ctxPerf, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sukses', 'Gagal', 'Antrean QC'],
+                    datasets: [{
+                        data: [88, 3, 9],
+                        backgroundColor: ['#10b981', '#f43f5e', '#eab308']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctxAnim = document.getElementById('animasiPieChart').getContext('2d');
+            animChartInstance = new Chart(ctxAnim, {
+                type: 'pie',
+                data: {
+                    labels: ['Tayang Minggu', 'Draft Animasi', 'Proses Edit'],
+                    datasets: [{
+                        data: [12, 4, 6],
+                        backgroundColor: ['#ec4899', '#a78bfa', '#cbd5e1']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function setJalurBahasa(jalur) {
+            dataBahasa[currentJalur].title = document.getElementById('contentTitle').value;
+            dataBahasa[currentJalur].desc = document.getElementById('contentDesc').value;
+            dataBahasa[currentJalur].tags = document.getElementById('contentTags').value;
+
+            currentJalur = jalur;
+            
+            document.getElementById('switch-id').className = jalur === 'id' ? "px-4 py-2 text-xs font-bold rounded-lg bg-white text-indigo-600 shadow-sm transition-all" : "px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+            document.getElementById('switch-global').className = jalur === 'global' ? "px-4 py-2 text-xs font-bold rounded-lg bg-white text-indigo-600 shadow-sm transition-all" : "px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+            
+            document.getElementById('bahasaLabel').innerText = jalur === 'id' ? "INDONESIA" : "GLOBAL / ENGLISH";
+
+            document.getElementById('contentTitle').value = dataBahasa[jalur].title;
+            document.getElementById('contentDesc').value = dataBahasa[jalur].desc;
+            document.getElementById('contentTags').value = dataBahasa[jalur].tags;
+        }
+
+        function setAnimJalurBahasa(jalur) {
+            dataAnimasiBahasa[currentAnimJalur].title = document.getElementById('animasiTitle').value;
+            dataAnimasiBahasa[currentAnimJalur].desc = document.getElementById('animasiDesc').value;
+            dataAnimasiBahasa[currentAnimJalur].tags = document.getElementById('animasiTags').value;
+
+            currentAnimJalur = jalur;
+            
+            document.getElementById('switch-anim-id').className = jalur === 'id' ? "px-4 py-2 text-xs font-bold rounded-lg bg-white text-pink-600 shadow-sm transition-all" : "px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-pink-900 transition-all";
+            document.getElementById('switch-anim-global').className = jalur === 'global' ? "px-4 py-2 text-xs font-bold rounded-lg bg-white text-pink-600 shadow-sm transition-all" : "px-4 py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-pink-900 transition-all";
+            
+            document.getElementById('animBahasaLabel').innerText = jalur === 'id' ? "INDONESIA" : "GLOBAL / ENGLISH";
+
+            document.getElementById('animasiTitle').value = dataAnimasiBahasa[jalur].title;
+            document.getElementById('animasiDesc').value = dataAnimasiBahasa[jalur].desc;
+            document.getElementById('animasiTags').value = dataAnimasiBahasa[jalur].tags;
+        }
+
+        function openLoginModal(platform) {
+            document.getElementById('targetPlatform').value = platform;
+            const modal = document.getElementById('loginModal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitle');
+            document.getElementById('modalLoginForm').reset();
+
+            if(platform === 'tiktok') { icon.className = "fa-brands fa-tiktok text-black"; title.innerText = "Login Jalur TikTok"; }
+            else if(platform === 'instagram') { icon.className = "fa-brands fa-instagram text-pink-500"; title.innerText = "Login Jalur Instagram"; }
+            else if(platform === 'youtube') { icon.className = "fa-brands fa-youtube text-red-600"; title.innerText = "Login Jalur YouTube Shorts"; }
+            modal.classList.remove('hidden');
+        }
+
+        function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+
+        document.getElementById('modalLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const platform = document.getElementById('targetPlatform').value;
+            const username = document.getElementById('loginUser').value.trim();
+            const logBox = document.getElementById('liveLoggerBox');
+
+            accountStatus[platform].loggedIn = true;
+            accountStatus[platform].username = username;
+
+            const targetCard = document.getElementById(`card-${platform}`);
+            const targetStatus = targetCard.querySelector('h3');
+            const targetInfo = document.getElementById(`info-wrapper-${platform}`);
+            const targetBtn = document.getElementById(`btn-login-${platform}`);
+
+            targetStatus.innerText = "SIAP SINCRON";
+            targetStatus.className = "text-lg font-extrabold text-green-600";
+            targetBtn.innerHTML = `<i class="fa-solid fa-rotate"></i> Ganti Jalur Akun`;
+            
+            targetInfo.innerHTML = `
+                <p class="text-xs font-semibold text-slate-700 mt-1">Aktif: ${username}</p>
+                <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                    <span>Status Jaringan:</span>
+                    <span class="font-bold text-indigo-600 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></span>Automated Ready</span>
+                </div>
+            `;
+
+            let borderClass = platform === 'tiktok' ? 'border-l-4 border-l-black' : (platform === 'instagram' ? 'border-l-4 border-l-pink-500' : 'border-l-4 border-l-red-600');
+            targetCard.className = `bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[180px] transition-all ${borderClass}`;
+
+            logBox.innerHTML += `<p class="text-indigo-400">[AUTH] Enkripsi Token Berhasil Terkunci untuk ${platform.toUpperCase()} (${username}).</p>`;
+            closeLoginModal();
+        });
+
+        function loadDriveVideoSimulate(inputElId, selectElId, playerElId, placeholderElId, loggerBoxId) {
+            const fileName = document.getElementById(inputElId).value.trim();
+            const driveAccount = document.getElementById(selectElId).value;
+            if(!fileName) { alert("Masukkan nama kode file di Drive kamu dulu gess!"); return; }
+
+            const player = document.getElementById(playerElId);
+            const placeholder = document.getElementById(placeholderElId);
+            const logBox = document.getElementById(loggerBoxId);
+
+            logBox.innerHTML += `<p class="text-amber-400">[PROCESS] Menghubungkan ke Drive Akun [${driveAccount.toUpperCase()}]...</p>`;
+            logBox.innerHTML += `<p class="text-amber-300">[PROCESS] Mengikis jejak render CapCut dan menyeimbangkan aspek video Shorts...</p>`;
+            
+            setTimeout(() => {
+                const targetSrc = playerElId === 'animasiVideoPlayer' ? 'animasiVideoSource' : 'videoSource';
+                document.getElementById(targetSrc).src = "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-light-editing-a-video-41712-large.mp4";
+                player.load();
+                placeholder.style.display = 'none';
+                player.classList.remove('hidden');
+                
+                logBox.innerHTML += `<p class="text-green-400">[SUCCESS] File "${fileName.toUpperCase()}" berhasil diambil dari Akun Drive [${driveAccount.toUpperCase()}] dan siap dievaluasi.</p>`;
+            }, 1200);
+        }
+
+        function triggerRevision(wrapperId, badgeId, loggerBoxId) {
+            const logBox = document.getElementById(loggerBoxId);
+            document.getElementById(wrapperId).classList.add('pointer-events-none', 'opacity-40');
+            
+            const badge = document.getElementById(badgeId);
+            badge.className = "text-[10px] font-bold uppercase tracking-widest bg-red-100 text-red-600 px-2.5 py-1 rounded-md";
+            badge.innerText = "REVISION NEEDED";
+
+            logBox.innerHTML += `<p class="text-red-500">[QC REJECTED] Evaluasi gagal. Silakan periksa kembali file rendering.</p>`;
+            alert("Status: REVISI. Form isian otomatis dikunci.");
+        }
+
+        function approveVideoQuality(playerElId, wrapperId, badgeId, loggerBoxId) {
+            const player = document.getElementById(playerElId);
+            if(player.classList.contains('hidden')) { alert("Silakan panggil berkas video dari Drive terlebih dahulu!"); return; }
+
+            const logBox = document.getElementById(loggerBoxId);
+            document.getElementById(wrapperId).classList.remove('pointer-events-none', 'opacity-40');
+            
+            const badge = document.getElementById(badgeId);
+            badge.className = "text-[10px] font-bold uppercase tracking-widest bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-md";
+            badge.innerText = "QC PASSED / CLEANED";
+
+            logBox.innerHTML += `<p class="text-emerald-400">[QC APPROVED] File terverifikasi aman & bersih. Form metadata dibuka.</p>`;
+        }
+
+        // ---------- SCRIPT SHORTS REGULER (DENGAN FETCH KE LAPTOP) ----------
+        document.getElementById('omniAutomationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(!accountStatus.tiktok.loggedIn && !accountStatus.instagram.loggedIn && !accountStatus.youtube.loggedIn) {
+                alert("Hubungkan akun sosmed kamu dulu di Tab Dashboard Status!");
+                switchTab('dashboard-tab');
+                return;
+            }
+
+            const btn = document.getElementById('btnOmniSubmit');
+            const logBox = document.getElementById('liveLoggerBox');
+            const jamRilis = document.getElementById('globalSchedule').value;
+
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Mengunci Scheduler...`;
+            btn.disabled = true;
+
+            ['tt', 'ig', 'yt'].forEach(p => {
+                const mtrx = document.getElementById(`matrix-${p}`);
+                if(mtrx) {
+                    mtrx.className = "bg-amber-50 border border-amber-300 p-2.5 rounded-xl text-center text-amber-600 flex flex-col items-center gap-1 animate-pulse";
+                    mtrx.innerHTML = mtrx.innerHTML.replace('IDLE', `WAITING @ ${jamRilis}`);
+                }
+            });
+
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-tower-broadcast"></i> Kunci & Jadwalkan Kirim Serentak`;
+                btn.disabled = false;
+                logBox.innerHTML += `<p class="text-blue-500">[SCHEDULER] Antrean reguler (${currentJalur.toUpperCase()}) dikunci pada jam ${jamRilis} WIB.</p>`;
+                
+                // MENGIRIM SINYAL KE PYTHON LAPTOP
+                const judul = document.getElementById('contentTitle').value;
+                const desc = document.getElementById('contentDesc').value;
+                const tags = document.getElementById('contentTags').value;
+                
+                fetch('http://192.168.1.6:5000/run-automation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: judul,
+                        caption: desc + "\n" + tags,
+                        schedule: jamRilis,
+                        platform: ['tt', 'ig', 'yt'],
+                        type: 'reguler',
+                        jalur: currentJalur
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log('Sinyal terkirim ke Python:', data))
+                .catch(err => console.error('Gagal kontak laptop', err));
+
+                alert(`Mantap! Video reguler (${currentJalur.toUpperCase()}) dijadwalkan serentak jam ${jamRilis}.`);
+                
+                totalStok--;
+                document.getElementById('stokCount').innerText = `${totalStok} File`;
+
+                setTimeout(() => {
+                    ['tt', 'ig', 'yt'].forEach(p => {
+                        const mtrx = document.getElementById(`matrix-${p}`);
+                        if(mtrx) {
+                            mtrx.className = "bg-emerald-50 border border-emerald-300 p-2.5 rounded-xl text-center text-emerald-600 flex flex-col items-center gap-1";
+                            mtrx.innerHTML = `<i class="fa-brands fa-${p === 'tt' ? 'tiktok' : (p === 'ig' ? 'instagram' : 'youtube')} text-xs"></i> ${p.toUpperCase()}: SUCCESS RILIS`;
+                        }
+                    });
+                    logBox.innerHTML += `<p class="text-emerald-500">[LIVE DISTRIBUTE SUCCESS] Semua platform sukses merilis konten tanpa watermark!</p>`;
+                }, 3000);
+
+                document.getElementById('omniAutomationForm').reset();
+                document.getElementById('globalSchedule').value = "20:00";
+                document.getElementById('metaFieldsWrapper').classList.add('pointer-events-none', 'opacity-40');
+                document.getElementById('qcBadge').className = "text-[10px] font-bold uppercase tracking-widest bg-slate-100 text-slate-500 px-2.5 py-1 rounded-md";
+                document.getElementById('qcBadge').innerText = "QC PENDING";
+            }, 1200);
+        });
+
+        // ---------- SCRIPT ANIMASI GEMOYAN (DENGAN FETCH KE LAPTOP) ----------
+        document.getElementById('animasiAutomationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(!accountStatus.tiktok.loggedIn && !accountStatus.instagram.loggedIn && !accountStatus.youtube.loggedIn) {
+                alert("Hubungkan akun sosmed kamu dulu di Tab Dashboard Status!");
+                switchTab('dashboard-tab');
+                return;
+            }
+
+            const btn = document.getElementById('btnAnimSubmit');
+            const logBox = document.getElementById('animasiLoggerBox');
+            const jamRilis = document.getElementById('animasiSchedule').value;
+
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Mengunci Jalur Animasi Minggu...`;
+            btn.disabled = true;
+
+            ['tt', 'ig', 'yt'].forEach(p => {
+                const mtrx = document.getElementById(`matrix-anim-${p}`);
+                if(mtrx) {
+                    mtrx.className = "bg-amber-50 border border-amber-300 p-2.5 rounded-xl text-center text-amber-600 flex flex-col items-center gap-1 animate-pulse";
+                    mtrx.innerHTML = mtrx.innerHTML.replace('IDLE', `READY FOR SUNDAY`);
+                }
+            });
+
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-rocket"></i> Jadwalkan Post Animasi Malam Minggu`;
+                btn.disabled = false;
+                logBox.innerHTML += `<p class="text-pink-500">[ANIMASI ENGINE] Kunci rilis eksklusif Malam Minggu Jalur [${currentAnimJalur.toUpperCase()}] Jam ${jamRilis} WIB Berhasil dikunci.</p>`;
+                
+                // MENGIRIM SINYAL KE PYTHON LAPTOP
+                const animJudul = document.getElementById('animasiTitle').value;
+                const animDesc = document.getElementById('animasiDesc').value;
+                const animTags = document.getElementById('animasiTags').value;
+                
+                fetch('http://192.168.1.6:5000/run-automation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: animJudul,
+                        caption: animDesc + "\n" + animTags,
+                        schedule: jamRilis,
+                        platform: ['tt', 'ig', 'yt'],
+                        type: 'animasi',
+                        jalur: currentAnimJalur
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log('Sinyal terkirim ke Python:', data))
+                .catch(err => console.error('Gagal kontak laptop', err));
+
+                alert(`Mantap gess! Konten animasi Gemoyan khusus Jalur [${currentAnimJalur.toUpperCase()}] dikunci otomatis untuk rilis Malam Minggu jam ${jamRilis} tepat!`);
+                
+                totalStok--;
+                document.getElementById('stokCount').innerText = `${totalStok} File`;
+
+                setTimeout(() => {
+                    ['tt', 'ig', 'yt'].forEach(p => {
+                        const mtrx = document.getElementById(`matrix-anim-${p}`);
+                        if(mtrx) {
+                            mtrx.className = "bg-pink-50 border border-pink-300 p-2.5 rounded-xl text-center text-pink-600 flex flex-col items-center gap-1";
+                            mtrx.innerHTML = `<i class="fa-brands fa-${p === 'tt' ? 'tiktok' : (p === 'ig' ? 'instagram' : 'youtube')} text-xs"></i> ${p.toUpperCase()}: ANIMASI LIVE`;
+                        }
+                    });
+                }, 3000);
+
+                document.getElementById('animasiAutomationForm').reset();
+                document.getElementById('animasiSchedule').value = "20:00";
+                document.getElementById('metaAnimasiWrapper').classList.add('pointer-events-none', 'opacity-40');
+                document.getElementById('animasiQcBadge').className = "text-[10px] font-bold uppercase tracking-widest bg-slate-100 text-slate-500 px-2.5 py-1 rounded-md";
+                document.getElementById('animasiQcBadge').innerText = "QC PENDING";
+            }, 1200);
+        });
+    </script> <script>
+    function refreshStats() {
+        // PENTING: Ganti 192.168.1.x dengan IP Address Laptopmu yang asli
+        const IP_LAPTOP = "192.168.1.13"; 
+        
+        fetch(`http://${IP_LAPTOP}:5000/api/stats`)
+            .then(res => res.json())
+            .then(data => {
+                // Pastikan ID elemen di HTML kamu sesuai (misal: 'stok-angka')
+                // Kalau ID-nya beda, ubah 'stok-angka' jadi ID yang ada di elemenmu
+                const el = document.getElementById('stok-angka');
+                if (el) {
+                    el.innerText = data.stok_drive + " File";
+                }
+                console.log("Stats diperbarui:", data);
+            })
+            .catch(err => console.error("Gagal update stats:", err));
+    }
+    
+    // Update data setiap 3 detik secara otomatis
+    setInterval(refreshStats, 3000);
+    </script>
+</body>
+</html>
